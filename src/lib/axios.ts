@@ -1,7 +1,7 @@
 import { ENDPOINT } from "@/constants/api.constant"
 import { useAuthStore } from "@/stores/auth.store"
 import axios, { AxiosError, type AxiosInstance, type AxiosRequestConfig } from "axios"
-import { queryClient } from "./queryClient"
+import { queryClient } from "./query-client"
 import { ROUTES } from "@/constants/routes.constant"
 
 declare module "axios" {
