@@ -1,6 +1,7 @@
 import { FormInput } from "@/components/form"
 import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
+import { handleMutationError } from "@/lib/error-handler"
 import { zodResolver } from "@/lib/zod-resolver"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
@@ -25,11 +26,11 @@ export function LoginForm() {
         mutate(values, {
             onSuccess: () => {
                 toast.success("Login successful")
-                navigate("/") // or dashboard route
+                
+                /* Handle the redirection logic as required. */
+                navigate("/") 
             },
-            onError: () => {
-                toast.error("Invalid credentials")
-            },
+            onError: (err) => handleMutationError(err, form.setError),
         })
     }
 

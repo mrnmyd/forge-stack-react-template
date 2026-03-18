@@ -56,8 +56,8 @@ export function DataTablePagination({
     const pages = getPages()
 
     return (
-        <div className="flex items-center justify-center">
-            <Pagination>
+        <div className="flex items-center justify-end">
+            <Pagination className="justify-end">
                 <PaginationContent>
                     {/* Prev */}
                     <PaginationItem>
