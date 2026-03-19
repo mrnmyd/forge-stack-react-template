@@ -20,6 +20,7 @@ import { ROUTES } from "@/constants/routes.constant"
 import { useAuthStore } from "@/stores/auth.store"
 import type { User } from "@/features/auth/types/auth.types"
 import { Logout } from "@/components/shared/logout"
+import { ThemeToggle } from "@/components/shared/theme-toggle"
 
 /**
  * Replace / extend navigation links as needed
@@ -93,6 +94,7 @@ export function PublicHeader() {
                             <UserMenu user={user} />
                         )}
                     </div>
+                    <ThemeToggle />
 
                     {/* Mobile Drawer */}
                     <Sheet open={open} onOpenChange={setOpen}>

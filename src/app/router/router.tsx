@@ -1,10 +1,12 @@
-import { PublicLayout } from "@/components/layouts/page-layout/PublicLayout"
+import { AdminLayout, adminMenu } from "@/components/layouts/admin"
+import { PublicLayout } from "@/components/layouts/public/public-layout"
 import { AuthGuard } from "@/components/shared/auth-guard"
 import { ROUTES } from "@/constants/routes.constant"
 import { RoleEnum } from "@/enums/role.enum"
 import { LoginPage } from "@/features/auth/pages/LoginPage"
 import { DataTableDemoPage } from "@/features/data-table-demo/components/DataTableDemoPage"
 import { FormComponentsDemoPage } from "@/features/form-demo/components/form-components-demo-page"
+import NotFoundPage from "@/pages/NotFoundPage"
 import { createBrowserRouter } from "react-router-dom"
 
 const router = createBrowserRouter([
@@ -17,7 +19,7 @@ const router = createBrowserRouter([
             },
             {
                 path: ROUTES.NOT_FOUND,
-                element: <div>404</div>,
+                element: <NotFoundPage />,
             },
             {
                 path: ROUTES.UNAUTHORIZED,
@@ -31,6 +33,20 @@ const router = createBrowserRouter([
                 path: ROUTES.AUTH.LOGIN,
                 element: <LoginPage />,
             },
+        ]
+    },
+    {
+        element: <AdminLayout menu={adminMenu} />,
+        children: [
+            {
+                element: <AuthGuard allowedRoles={[RoleEnum.USER]} />,
+                children: [
+                    {
+                        path: ROUTES.TABLE_DEMO,
+                        element: <DataTableDemoPage />,
+                    },
+                ]
+            }
         ]
     },
     {

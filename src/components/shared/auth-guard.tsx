@@ -2,6 +2,7 @@ import { Navigate, Outlet } from "react-router-dom"
 import { useAuthStore } from "@/stores/auth.store"
 import type { RoleEnum } from "@/enums/role.enum"
 import { ROUTES } from "@/constants/routes.constant"
+import { LoadingPage } from "@/pages/LoadingPage"
 
 interface AuthGuardProps {
     allowedRoles?: RoleEnum[]
@@ -11,13 +12,7 @@ export const AuthGuard = ({ allowedRoles }: AuthGuardProps) => {
     const { status, user } = useAuthStore()
 
     if (status === "checking") {
-        return (
-            <div className="flex min-h-screen items-center justify-center">
-                <span className="text-sm text-muted-foreground">
-                    Loading...
-                </span>
-            </div>
-        )
+        return <LoadingPage />
     }
 
     if (status === "unauthenticated") {
