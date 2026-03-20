@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
 import { useLogin } from "../hooks/useLogin"
 import { loginSchema, type LoginFormInputs } from "../schemas/login.schema"
+import { ROUTES } from "@/constants/routes.constant"
 
 export function LoginForm() {
     const navigate = useNavigate()
@@ -26,9 +27,7 @@ export function LoginForm() {
         mutate(values, {
             onSuccess: () => {
                 toast.success("Login successful")
-                
-                /* Handle the redirection logic as required. */
-                navigate("/") 
+                navigate(ROUTES.ROOT)
             },
             onError: (err) => handleMutationError(err, form.setError),
         })

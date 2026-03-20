@@ -1,3 +1,4 @@
+import type { Table as TanstackTable } from "@tanstack/react-table"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import {
@@ -7,19 +8,19 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-interface Props {
+interface Props<TData> {
     search: string
     onSearchChange: (value: string) => void
     searchPlaceholder?: string
-    table: any
+    table: TanstackTable<TData>
 }
 
-export function DataTableToolbar({
+export function DataTableToolbar<TData>({
     search,
     onSearchChange,
     searchPlaceholder,
     table,
-}: Props) {
+}: Props<TData>) {
     return (
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <Input
@@ -37,11 +38,11 @@ export function DataTableToolbar({
                         </Button>
                     </DropdownMenuTrigger>
 
-                    <DropdownMenuContent align="end">
+                        <DropdownMenuContent align="end">
                         {table
                             .getAllColumns()
-                            .filter((c: any) => c.getCanHide())
-                            .map((column: any) => (
+                            .filter((column) => column.getCanHide())
+                            .map((column) => (
                                 <DropdownMenuCheckboxItem
                                     key={column.id}
                                     checked={column.getIsVisible()}
@@ -49,7 +50,7 @@ export function DataTableToolbar({
                                         column.toggleVisibility(!!value)
                                     }
                                 >
-                                    {column.columnDef.meta?.label ?? column.id}
+                                    {(column.columnDef.meta as { label?: string } | undefined)?.label ?? column.id}
                                 </DropdownMenuCheckboxItem>
                             ))}
                     </DropdownMenuContent>

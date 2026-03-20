@@ -163,7 +163,10 @@ export function DataTable<T>({
 
     const activeSearch = isBackendPaginated ? search ?? "" : localSearch
     const activeSort = isBackendPaginated ? sort ?? "" : localSort
-    const activeFilters = isBackendPaginated ? filters ?? {} : localFilters
+    const activeFilters = React.useMemo(
+        () => (isBackendPaginated ? filters ?? {} : localFilters),
+        [filters, isBackendPaginated, localFilters]
+    )
 
     const processedData = React.useMemo(() => {
         if (isBackendPaginated) {
@@ -263,6 +266,7 @@ export function DataTable<T>({
         })
     }, [isBackendPaginated, totalPages])
 
+    // eslint-disable-next-line react-hooks/incompatible-library
     const table = useReactTable({
         data: paginatedData,
         columns,

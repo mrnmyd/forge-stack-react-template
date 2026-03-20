@@ -1,5 +1,6 @@
 // lib/api/api-error.util.ts
 
+import type { AxiosError } from "axios"
 import type { FieldValues, Path, UseFormSetError } from "react-hook-form"
 import { toast } from "sonner"
 import { useAuthStore } from "@/stores/auth.store"
@@ -28,7 +29,7 @@ export type AppError = {
  * STEP 1: Normalize backend/unknown error → AppError
  */
 export function normalizeError(error: unknown): AppError {
-    const err = error as any
+    const err = error as AxiosError<ProblemDetail>
 
     // Network / unknown error
     if (!err?.response) {
